@@ -19,14 +19,14 @@ export default function DarkModeSwitch() {
           <MdLightMode  
           className='w-7 h-7 hover:text-gray-400'
           /> 
-          {/* <span className="font-bold hidden xl:inline">Theme</span> */}
+          <span className="font-bold hidden xl:inline">Theme</span>
       </div>
     ): ( 
       <div className='p-3 flex items-center hover:bg-gray-100 rounded-full transition-all duration-200 cursor-pointer w-fit' onClick={() => setTheme('dark')} >
       <MdDarkMode  
       className='w-7 h-7 hover:text-gray-400'
       /> 
-        {/* <span className="font-bold hidden xl:inline">Theme</span> */}
+        <span className="font-bold hidden xl:inline">Theme</span>
     </div>
     ))
     
