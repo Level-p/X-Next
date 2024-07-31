@@ -29,7 +29,7 @@ export default function Sidebar() {
         </div>
         {
           session && (
-            <div className="text-sm flex items-center cursor-pointer p-3 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-full transition-all duration-200">
+            <div className="text-sm flex items-center cursor-pointer p-3 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-full transition-all duration-200 gap-1">
               <Image src={session.user.image} alt="user-img" width={40} height={40} className="h-10 2-10 rounded-full"/>
               <div className="hidden xl:inline">
                 <h4 className="font-bold">{session.user.name}</h4>

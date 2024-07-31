@@ -5,7 +5,6 @@ import Sidebar from "@/components/Sidebar";
 import News from "@/components/News";
 import SesssionWrapper from "@/components/SesssionWrapper";
 
-const inter = Inter({ subsets: ["latin"] });
 const lato = Lato({
   subsets: ["latin"],
   variable: "--font-lato",
@@ -24,7 +23,7 @@ export default function RootLayout({ children }) {
       <body className={lato.variable}>
           <Provider>
             <div className="flex justify-between max-w-6xl mx-auto">
-              <div className="hidden sm:inline border-r h-screen"><Sidebar/></div>
+              <div className="hidden sm:inline border-r h-screen sticky top-0"><Sidebar/></div>
 
               <div className="max-w-2xl flex-1">{children}</div>
 

@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client"
 
 import { useSession } from "next-auth/react"
@@ -79,6 +78,7 @@ export default function Input() {
       const docRef = await addDoc(collection(db, "posts"), {
         uid: session.user.uid,
         username: session.user.username,
+        name: session.user.name,
         tweet,
         profileImg: session.user.image,
         image: imageFileUrl,
@@ -100,14 +100,19 @@ export default function Input() {
         height={40} className="h-11 w-11 rounded-full cursor-pointer  hover:brightness-95"/>
         <div className="w-full divide-y divide-gray-200">
             <textarea 
-            className="w-full border-none outline-none tracking-wide min-h-[50px] dark:bg-slate-700"  
+            className="w-full border-none outline-none tracking-wide min-h-[50px] dark:bg-slate-700 p-1 rounded"  
             rows={2} 
             placeholder="What's happening" 
             value={tweet} 
             onChange={(e) => setTweet(e.target.value)}></textarea>
             {
                   selectedFile && (
-                    <Image width={40} height={40} src={imageFileUrl} alt="image" className={`w-full max-h-[250px] object-cover cursor-pointer rounded-md ${imageUploading ? 'animate-pulse': ''}`} onClick={() => setSelecetedFile(null)}/>
+                    <Image 
+                    width={40} 
+                    height={40} 
+                    src={imageFileUrl} 
+                    alt="image" 
+                    className={`w-full max-h-[250px] object-cover cursor-pointer rounded-md ${imageUploading ? 'animate-pulse': ''}`} onClick={() => setSelecetedFile(null)}/>
                   )
             }
             <div className="flex items-center justify-between pt-2.5 transition-all duration-200">
@@ -120,7 +125,7 @@ export default function Input() {
                 onChange={addImageToPost}
                 />
                 <button 
-                disabled={!tweet.trim() || !selectedFile || postLoading || imageUploading}
+                disabled={!tweet.trim() || postLoading || imageUploading}
                 onClick={handleSubmit}
                 className="bg-blue-400 px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50">Post</button>
             </div>
