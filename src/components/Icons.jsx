@@ -7,13 +7,16 @@ import { addDoc, collection, deleteDoc, doc, getFirestore, onSnapshot, serverTim
 import { app } from "@/firebase";
 import { useEffect, useState } from "react";
 import { deleteObject, getStorage, ref } from "firebase/storage";
+import { useRecoilState } from "recoil";
+import { modalState, postIdState } from "@/atom/modelAtom";
 
 
 export default function Icons({ id, postId, deleteImg }) {
     const {data: session} = useSession()
     const db = getFirestore(app)
     const storage = getStorage(app)
-
+    const [open, setOpen] = useRecoilState(modalState)
+    const [postDataId, setPostDataId] = useRecoilState(postIdState)
     const [likes, setLikes] = useState([])
     const [bookmarks, setBookmarks] = useState([])
     const [hasLiked, setHasLiked] = useState(false)
@@ -85,7 +88,13 @@ export default function Icons({ id, postId, deleteImg }) {
   return (
     <section className="flex justify-between items-center gap-5">
         <div className="flex justify-start gap-5 p-2">
-            <HiOutlineChat className="h-8 w-8 cursor-pointer rounded-full transition duration-300 ease-in-out p-2 hover:text-sky-500 hover:bg-sky-100 dark:hover:bg-gray-700" />
+            <HiOutlineChat className="h-8 w-8 cursor-pointer rounded-full transition duration-300 ease-in-out p-2 hover:text-sky-500 hover:bg-sky-100 dark:hover:bg-gray-700" onClick={() => {
+                if(!session) return signIn()
+                else {
+                    setOpen(!open)
+                    setPostDataId(id)
+                }
+            }}/>
             <div className="flex items-center">
                 {
                     hasLiked ?  (

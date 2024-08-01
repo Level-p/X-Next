@@ -4,6 +4,7 @@ import Provider from "./Provider";
 import Sidebar from "@/components/Sidebar";
 import News from "@/components/News";
 import SesssionWrapper from "@/components/SesssionWrapper";
+import CommentModal from "@/components/CommentModal";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -33,7 +34,8 @@ export default function RootLayout({ children }) {
                   </div>
                   <News/>
                 </div>
-            </div>        
+            </div>
+            <CommentModal/>        
           </Provider>
       </body>
     </html>
