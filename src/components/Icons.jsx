@@ -19,6 +19,7 @@ export default function Icons({ id, postId, deleteImg }) {
     const [postDataId, setPostDataId] = useRecoilState(postIdState)
     const [likes, setLikes] = useState([])
     const [bookmarks, setBookmarks] = useState([])
+    const [comments, setComments] = useState([])
     const [hasLiked, setHasLiked] = useState(false)
     const [hasBookmarked, setHasBookmarked] = useState(false)
 
@@ -63,7 +64,7 @@ export default function Icons({ id, postId, deleteImg }) {
     }
 
     useEffect(() => {
-        const items = ['likes', 'bookmarks']
+        const items = ['likes', 'bookmarks', 'comments']
         items.forEach(item => {
             onSnapshot(collection(db, 'posts', id, item), (snapshot) => {
                 switch (item) {
@@ -72,6 +73,9 @@ export default function Icons({ id, postId, deleteImg }) {
                     break
                     case "bookmarks": 
                     setBookmarks(snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()})))
+                    break
+                    case "comments": 
+                    setComments(snapshot.docs)
                     break
                     default: 
                     break
@@ -85,16 +89,24 @@ export default function Icons({ id, postId, deleteImg }) {
         setHasBookmarked(bookmarks.findIndex(bok => bok.id === session?.user?.uid) !== -1)
     }, [likes, bookmarks, session?.user?.uid])
 
+
   return (
     <section className="flex justify-between items-center gap-5">
         <div className="flex justify-start gap-5 p-2">
-            <HiOutlineChat className="h-8 w-8 cursor-pointer rounded-full transition duration-300 ease-in-out p-2 hover:text-sky-500 hover:bg-sky-100 dark:hover:bg-gray-700" onClick={() => {
-                if(!session) return signIn()
-                else {
-                    setOpen(!open)
-                    setPostDataId(id)
+            <div className="flex items-center">
+                <HiOutlineChat className="h-8 w-8 cursor-pointer rounded-full transition duration-300 ease-in-out p-2 hover:text-sky-500 hover:bg-sky-100 dark:hover:bg-gray-700" onClick={() => {
+                    if(!session) return signIn()
+                    else {
+                        setOpen(!open)
+                        setPostDataId(id)
+                    }
+                }}/> 
+                {
+                    comments.length > 0 && (
+                        <span className="text-xs">{comments.length}</span>
+                    )
                 }
-            }}/>
+            </div>
             <div className="flex items-center">
                 {
                     hasLiked ?  (

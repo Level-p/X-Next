@@ -7,9 +7,10 @@ import Modal from 'react-modal'
 import { HiX } from "react-icons/hi"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
-import { doc, getFirestore, onSnapshot } from "firebase/firestore"
+import { addDoc, collection, doc, getFirestore, onSnapshot, serverTimestamp } from "firebase/firestore"
 import { app } from "@/firebase"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 
 
 
@@ -18,9 +19,9 @@ export default function CommentModal() {
     const db = getFirestore(app)
     const [open, setOpen] = useRecoilState(modalState)
     const [post, setPost] = useState({})
-    const [reply, setReply] = useState('')
+    const [comment, setComment] = useState('')
     const [postDataId, setPostDataId] = useRecoilState(postIdState)
-    console.log(post);
+    const router = useRouter()
 
     useEffect(() => {
         if(postDataId !== '') {
@@ -36,7 +37,18 @@ export default function CommentModal() {
         }
     }, [db, postDataId])
 
-    const sendComment = async() => {}
+    const sendComment = async() => {
+        await addDoc(collection(db, 'posts', postDataId, 'comments'), {
+            name: session.user.name,
+            username: session.user.username,
+            userImg: session.user.image,
+            comment,
+            timestamp: serverTimestamp()
+        })
+        setComment('')
+        setOpen(false)
+        router.push(`posts/${postDataId}`)
+    }
 
   return (
     <div>
@@ -69,15 +81,15 @@ export default function CommentModal() {
                         <small className="w-full divide-y divide-gray-200">
                             <div>
                                 <textarea 
-                                value={reply}
-                                onChange={(e) => setReply(e.target.value)}
+                                value={comment}
+                                onChange={(e) => setComment(e.target.value)}
                                 rows={2} 
                                 placeholder="Whats happening" 
-                                className="w-full border-none tracking-wide mi-h-[50px] text-lg p-1 placeholder:text-gray-400 dark:bg-slate-600 outline-none"></textarea>
+                                className="w-full border-none tracking-wide min-h-[50px] text-lg p-1 placeholder:text-gray-400 dark:bg-slate-600 outline-none"></textarea>
                             </div>
                             <div className="flex items-center justify-end pt-2 5">
                                 <button 
-                                disabled={!reply.trim()}
+                                disabled={!comment.trim()}
                                 onClick={sendComment}
                                 className="bg-blue-400 px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50">
                                     Reply
