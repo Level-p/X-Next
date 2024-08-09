@@ -2,6 +2,7 @@
 import Link from "next/link"
 import {FaXTwitter} from "react-icons/fa6"
 import { HiDotsHorizontal, HiHome } from "react-icons/hi"
+import { FaRegBookmark, FaBookmark } from "react-icons/fa6";
 import DarkModeSwitch from "./DarkModeSwitch"
 import { signIn, signOut, useSession } from "next-auth/react"
 import Image from "next/image"
@@ -19,6 +20,14 @@ export default function Sidebar() {
                 <span className="font-bold hidden xl:inline">Home</span>
             </Link>
             <DarkModeSwitch/>
+             {
+              session && (
+                <Link href='/bookmarks' className="flex items-center p-3 hover:bg-gray-100 rounded-full transition-all duration-200 dark:text-white dark:hover:bg-slate-800 w-fit">
+                  <FaBookmark className="w-6 h-6 transition-all duration-200"/>
+                  <span className="font-bold hidden xl:inline">Bookmarks</span>
+                </Link>
+              )
+            }
             {
               session ? (
               <button className="bg-red-500 text-white rounded-full hover:brightness-95 shadow-md transition-all duration-200 w-32 h-9 hidden xl:inline font-normal" onClick={() => signOut()}>Sign out</button>
@@ -29,14 +38,14 @@ export default function Sidebar() {
         </div>
         {
           session && (
-            <div className="text-sm flex items-center cursor-pointer p-3 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-full transition-all duration-200 gap-1">
+            <Link href={'/profile'} className="text-sm flex items-center cursor-pointer p-3 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-full transition-all duration-200 gap-1">
               <Image src={session.user.image} alt="user-img" width={40} height={40} className="h-10 2-10 rounded-full"/>
               <div className="hidden xl:inline">
                 <h4 className="font-bold">{session.user.name}</h4>
                 <p cla>@{session.user.username}</p>
               </div>
               <HiDotsHorizontal className="h-5 xl:ml-8 hidden xl:inline"/>
-            </div>
+            </Link>
           )
         }
       </nav>

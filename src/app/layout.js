@@ -5,6 +5,8 @@ import Sidebar from "@/components/Sidebar";
 import News from "@/components/News";
 import SesssionWrapper from "@/components/SesssionWrapper";
 import CommentModal from "@/components/CommentModal";
+import ProfileModal from "@/components/ProfileModal";
+import MobileAdminHeader from "@/components/MobileAdminHeader";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -26,7 +28,10 @@ export default function RootLayout({ children }) {
             <div className="flex justify-between max-w-6xl mx-auto">
               <div className="hidden sm:inline border-r h-screen sticky top-0"><Sidebar/></div>
 
-              <div className="max-w-2xl flex-1">{children}</div>
+              <div className="max-w-2xl flex-1">
+                {children}
+                <MobileAdminHeader/>
+              </div>
 
                 <div className="lg:flex-col p-3 h-screen border-l dark:border-gray-500 hidden lg:flex w-[24rem]">
                   <div className='sticky top-0 py-2'>
@@ -35,7 +40,8 @@ export default function RootLayout({ children }) {
                   <News/>
                 </div>
             </div>
-            <CommentModal/>        
+            <CommentModal/>   
+            <ProfileModal/>     
           </Provider>
       </body>
     </html>

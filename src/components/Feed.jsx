@@ -8,9 +8,6 @@ import { useEffect, useState } from "react"
 export default  function Feed() {
     const db = getFirestore(app)
     const [data, setData] = useState([])
-    // const q = query(collection(db, 'posts'), orderBy("timestamp", 'desc'))
-    // const querySnapshot = await getDocs(q)
-    // querySnapshot.forEach((doc) => data.push({id: doc.id, ...doc.data()}))
 
     useEffect(() => {
       onSnapshot(query(collection(db, 'posts'), orderBy('timestamp', 'desc')), (snapshot) => {
@@ -18,7 +15,7 @@ export default  function Feed() {
       })
     }, [data, db])
   return (
-    <div>
+    <div className="pb-10">
         {data.map((post) => (
             <Post key={post.id} post={post} id={post.id}/>
         ))}

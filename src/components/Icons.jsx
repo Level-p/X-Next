@@ -11,7 +11,7 @@ import { useRecoilState } from "recoil";
 import { modalState, postIdState } from "@/atom/modelAtom";
 
 
-export default function Icons({ id, postId, deleteImg }) {
+export default function Icons({ id, postId, deleteImg, post }) {
     const {data: session} = useSession()
     const db = getFirestore(app)
     const storage = getStorage(app)
@@ -46,8 +46,9 @@ export default function Icons({ id, postId, deleteImg }) {
             } else {
                 const docRef = doc(db, 'posts', id, 'bookmarks', session.user.uid)
                 await setDoc(docRef, {
-                    username: session.user.username,
-                    timestamp: serverTimestamp()
+                    bookmarkeduser: session.user.username,
+                    post,
+                    bookmarktimestamp: serverTimestamp()
                 })
             }
         

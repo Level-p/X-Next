@@ -30,7 +30,7 @@ export default function Post({post, id}) {
                 <img src={post?.image} className="rounded-2xl mr-2" alt=""/>
             </Link>
 
-            <Icons id={id} postId={post.uid} deleteImg={post.image}/>
+            <Icons id={id} postId={post.uid} deleteImg={post.image} post={post}/>
         </div>
     </div>
   )
