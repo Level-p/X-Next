@@ -19,6 +19,8 @@ export const metadata = {
   description: "An X clone website built with Next js and Firebase",
 };
 
+export const dynamic = 'force-dynamic'
+
 export default function RootLayout({ children }) {
   return (
     <SesssionWrapper>

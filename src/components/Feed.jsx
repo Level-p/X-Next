@@ -1,21 +1,14 @@
-"use client"
-
-import { app } from "@/firebase"
-import { collection, getDocs, orderBy, query, getFirestore, onSnapshot } from "firebase/firestore"
 import Post from "./Post"
-import { useEffect, useState } from "react"
 
-export default  function Feed() {
+export default async function Feed() {
     const db = getFirestore(app)
-    const [data, setData] = useState([])
+    let data = []
+    const q = query(collection(db, 'posts'), orderBy("timestamp", 'desc'))
+    const querySnapshot = await getDocs(q)
+    querySnapshot.forEach((doc) => data.push({id: doc.id, ...doc.data()}))
 
-    useEffect(() => {
-      onSnapshot(query(collection(db, 'posts'), orderBy('timestamp', 'desc')), (snapshot) => {
-          setData(snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()})))
-      })
-    }, [data, db])
   return (
-    <div className="pb-10">
+    <div>
         {data.map((post) => (
             <Post key={post.id} post={post} id={post.id}/>
         ))}
