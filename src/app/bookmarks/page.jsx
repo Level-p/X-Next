@@ -43,7 +43,6 @@ export default  function Bookmarks() {
         setSaved(bookmarks)
       }
 
-
     }, [db, posts, session?.user?.username]);
 
     

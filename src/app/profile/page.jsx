@@ -50,7 +50,11 @@ export default function Profile() {
         </div>
 
         <header className="flex items-center justify-between border-y">
-            <span className={`tracking-wider w-full py-3 hover:bg-gray-100 dark:hover:bg-slate-700 transition-all duration-150 text-center border-r ${data.length !== 0 && '!border-b-2 !border-b-blue-500'}`}>Posts</span>
+            <span 
+            onClick={() => {
+                setCurrent(true)
+            }}
+            className={`tracking-wider w-full py-3 hover:bg-gray-100 dark:hover:bg-slate-700 transition-all duration-150 text-center border-r ${data.length !== 0 && '!border-b-2 !border-b-blue-500'}`}>Posts</span>
             <span className="tracking-wider w-full py-3 hover:bg-gray-100 dark:hover:bg-slate-700 transition-all duration-150 text-center">Likes</span>
         </header>
 
