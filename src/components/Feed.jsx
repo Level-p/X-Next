@@ -1,4 +1,6 @@
 import Post from "./Post"
+import { collection, getFirestore, orderBy, getDocs, query } from "firebase/firestore"
+import { app } from "@/firebase"
 
 export default async function Feed() {
     const db = getFirestore(app)
