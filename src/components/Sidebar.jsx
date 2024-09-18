@@ -42,7 +42,7 @@ export default function Sidebar() {
               <Image src={session.user.image} alt="user-img" width={40} height={40} className="h-10 2-10 rounded-full"/>
               <div className="hidden xl:inline">
                 <h4 className="font-bold">{session.user.name}</h4>
-                <p cla>@{session.user.username}</p>
+                <p>@{session.user.username}</p>
               </div>
               <HiDotsHorizontal className="h-5 xl:ml-8 hidden xl:inline"/>
             </Link>

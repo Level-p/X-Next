@@ -2,10 +2,10 @@
 
 import { editProfile, profileState } from "@/atom/modelAtom";
 import { app } from "@/firebase";
-import { orderBy, collection, doc, getFirestore, onSnapshot, query, where } from "firebase/firestore";
+import { collection, getFirestore, onSnapshot, query, where } from "firebase/firestore";
 import { useSession } from "next-auth/react"
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa6";
 
 import { useRecoilState } from "recoil";
@@ -17,6 +17,7 @@ export default function Profile() {
     const [profileStateData, setprofileStateData] = useRecoilState(profileState)
     const [profile, setProfile] = useState([])
     const [data, setData] = useState([])
+    console.log(data);
     const db = getFirestore(app)
 
     useEffect(() => {
@@ -24,7 +25,7 @@ export default function Profile() {
             setProfile(snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})))
         })
 
-        onSnapshot(query(collection(db, 'posts'), where("uid", "==", `${session?.user?.uid}`),  orderBy('timestamp', 'desc')), (snapshot) => {
+        onSnapshot(query(collection(db, 'posts'), where("uid", "==", `${session?.user?.uid}`)), (snapshot) => {
             setData(snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()})))
         })
     }, [db,session?.user?.uid])
@@ -51,9 +52,6 @@ export default function Profile() {
 
         <header className="flex items-center justify-between border-y">
             <span 
-            onClick={() => {
-                setCurrent(true)
-            }}
             className={`tracking-wider w-full py-3 hover:bg-gray-100 dark:hover:bg-slate-700 transition-all duration-150 text-center border-r ${data.length !== 0 && '!border-b-2 !border-b-blue-500'}`}>Posts</span>
             <span className="tracking-wider w-full py-3 hover:bg-gray-100 dark:hover:bg-slate-700 transition-all duration-150 text-center">Likes</span>
         </header>
