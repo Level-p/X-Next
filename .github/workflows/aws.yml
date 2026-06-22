@@ -32,10 +32,10 @@ on:
 
 env:
   AWS_REGION: eu-west-2
-  ECR_REPOSITORY: my-ecr-repository
-  ECS_SERVICE: my-ecs-service
-  ECS_CLUSTER: my-ecs-cluster
-  ECS_TASK_DEFINITION: task-definition.json
+  ECR_REPOSITORY: 127214197057.dkr.ecr.eu-west-2.amazonaws.com/ecrsteve
+  ECS_SERVICE: Service-practice-ecs-service
+  ECS_CLUSTER: practice-ecs-cluster
+  ECS_TASK_DEFINITION: ./github/workflows/task-definition.json
   CONTAINER_NAME: appContainer
 
 permissions:
@@ -74,11 +74,11 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
+          IMAGE_TAG: latest
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
       # -------------------------
       # RENDER TASK DEFINITION (IMPORTANT FIX)
