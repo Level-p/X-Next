@@ -49,7 +49,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/task-definition-prod",
+          "awslogs-group": "/ecs/task-definition-practice-ecs-task-def",
           "awslogs-region": "eu-west-2",
           "awslogs-stream-prefix": "ecs"
         }
