@@ -32,7 +32,7 @@ on:
 
 env:
   AWS_REGION: eu-west-2
-  ECR_REPOSITORY: 127214197057.dkr.ecr.eu-west-2.amazonaws.com/ecrsteve
+  ECR_REPOSITORY: ecrsteve
   ECS_SERVICE: Service-practice-ecs-service
   ECS_CLUSTER: practice-ecs-cluster
   ECS_TASK_DEFINITION: ./github/workflows/task-definition.json

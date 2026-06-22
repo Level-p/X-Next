@@ -13,7 +13,7 @@
   "containerDefinitions": [
     {
       "name": "appContainer",
-      "image": "127214197057.dkr.ecr.eu-west-2.amazonaws.com/ecrsteve",
+      "image": "127214197057.dkr.ecr.eu-west-2.amazonaws.com/ecrsteve:latest",
 
       "portMappings": [
         {
