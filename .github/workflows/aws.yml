@@ -53,6 +53,18 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Replace Variables
+      run: |
+          sed -i "s|NEXTAUTH_URL_PLACEHOLDER|${{ vars.NEXTAUTH_URL }}|g" task-definition.json
+
+          sed -i "s|GOOGLE_CLIENT_ID_PLACEHOLDER|${{ vars.GOOGLE_CLIENT_ID }}|g" task-definition.json
+
+          sed -i "s|GOOGLE_CLIENT_SECRET_PLACEHOLDER|${{ vars.GOOGLE_CLIENT_SECRET }}|g" task-definition.json
+
+          sed -i "s|NEXTAUTH_SECRET_PLACEHOLDER|${{ vars.NEXTAUTH_SECRET }}|g" task-definition.json
+
+          sed -i "s|FIREBASE_API_KEY_PLACEHOLDER|${{ vars.NEXT_PUBLIC_FIREBASE_API_KEY }}|g" task-definition.json
+
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
