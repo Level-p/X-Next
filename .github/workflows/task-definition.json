@@ -1,0 +1,60 @@
+{
+  "family": "task-definition-prod",
+
+  "networkMode": "awsvpc",
+
+  "requiresCompatibilities": ["FARGATE"],
+
+  "cpu": "256",
+  "memory": "512",
+
+  "executionRoleArn": "EXECUTION_ROLE_ARN",
+  "taskRoleArn": "TASK_ROLE_ARN",
+
+  "containerDefinitions": [
+    {
+      "name": "appContainer",
+      "image": "IMAGE_PLACEHOLDER",
+
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 3000,
+          "protocol": "tcp"
+        }
+      ],
+
+      "environment": [
+        {
+          "name": "NEXTAUTH_URL",
+          "value": "NEXTAUTH_URL_PLACEHOLDER"
+        },
+        {
+          "name": "GOOGLE_CLIENT_ID",
+          "value": "GOOGLE_CLIENT_ID_PLACEHOLDER"
+        },
+        {
+          "name": "GOOGLE_CLIENT_SECRET",
+          "value": "GOOGLE_CLIENT_SECRET_PLACEHOLDER"
+        },
+        {
+          "name": "NEXTAUTH_SECRET",
+          "value": "NEXTAUTH_SECRET_PLACEHOLDER"
+        },
+        {
+          "name": "NEXT_PUBLIC_FIREBASE_API_KEY",
+          "value": "FIREBASE_API_KEY_PLACEHOLDER"
+        }
+      ],
+
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/task-definition-prod",
+          "awslogs-region": "eu-west-2",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ]
+}
