@@ -35,7 +35,7 @@ env:
   ECR_REPOSITORY: ecrsteve
   ECS_SERVICE: Service-practice-ecs-service
   ECS_CLUSTER: practice-ecs-cluster
-  ECS_TASK_DEFINITION: ./github/workflows/task-definition.json
+  ECS_TASK_DEFINITION: .github/workflows/task-definition.json
   CONTAINER_NAME: appContainer
 
 permissions:
