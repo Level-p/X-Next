@@ -1,9 +1,19 @@
-FROM node:20-alpine 
+FROM node:20-alpine
 
 WORKDIR /app
+
+# Copy package files first
+COPY package*.json ./
+
+# Install dependencies
 RUN npm install
-# Build the app
+
+# Copy application code
+COPY . .
+
+# Build application
 RUN npm run build
+
 
 EXPOSE 3000
 
